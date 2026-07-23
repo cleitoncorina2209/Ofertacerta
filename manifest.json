@@ -1,0 +1,21 @@
+{
+  "name": "CSC.Digital - Ofertas Selecionadas",
+  "short_name": "CSC.Digital",
+  "description": "Achados e ofertas com desconto do Mercado Livre, selecionados pela CSC.Digital.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#EBEBEB",
+  "theme_color": "#FFE600",
+  "icons": [
+    {
+      "src": "icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

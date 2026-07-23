@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://garimpocsc.com.br/sitemap.xml
