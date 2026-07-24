@@ -1,0 +1,787 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ofertas selecionadas · CSC.Digital</title>
+<meta name="description" content="Achadinhos e ofertas com desconto do Mercado Livre, selecionados pela CSC.Digital. Frete grátis e desconto no PIX toda semana.">
+<meta name="theme-color" content="#FFE600">
+<meta property="og:title" content="Ofertas selecionadas · CSC.Digital">
+<meta property="og:description" content="Achadinhos e ofertas com desconto do Mercado Livre, selecionados e conferidos antes de indicar.">
+<meta property="og:type" content="website">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='%23FFE600'/%3E%3Ctext x='50' y='68' font-size='55' font-weight='800' text-anchor='middle' font-family='Arial'%3EC%3C/text%3E%3C/svg%3E">
+<link rel="manifest" href="manifest.json">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<link rel="apple-touch-icon" href="icon-192.png">
+<script>
+  // Aplica o tema salvo ANTES do resto da pagina carregar, pra nao
+  // aparecer clara por uma fracao de segundo e depois trocar pra escura.
+  try {
+    if (localStorage.getItem('tema-preferido') === 'escuro') {
+      document.documentElement.setAttribute('data-tema', 'escuro');
+    }
+  } catch (e) {}
+</script>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
+  :root{
+    --amarelo:#FFE600;
+    --azul:#3483FA;
+    --azul-escuro:#2968C8;
+    --verde:#00A650;
+    --fundo:#EBEBEB;
+    --card:#FFFFFF;
+    --texto:#333333;
+    --texto-claro:#666666;
+    --cinza-borda:#E0E0E0;
+  }
+
+  html[data-tema="escuro"]{
+    --azul:#5B9BFF;
+    --azul-escuro:#7CADFF;
+    --verde:#2ECC71;
+    --fundo:#121212;
+    --card:#1E1E1E;
+    --texto:#EDEDED;
+    --texto-claro:#A0A0A0;
+    --cinza-borda:#333333;
+  }
+  html[data-tema="escuro"] .card{ box-shadow:none; }
+  html[data-tema="escuro"] .skeleton-shimmer{
+    background:linear-gradient(90deg, #222 25%, #2a2a2a 37%, #222 63%);
+    background-size:400% 100%;
+  }
+  html[data-tema="escuro"] .busca-fake{ background:#2a2a2a; }
+  html[data-tema="escuro"] .busca-input{ color:#EDEDED; }
+
+  *{ box-sizing:border-box; margin:0; padding:0; }
+
+  body{
+    background:var(--fundo);
+    color:var(--texto);
+    font-family:'Inter', sans-serif;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  a{ color:inherit; text-decoration:none; }
+
+  /* ===== TOPO ===== */
+  .topbar{
+    background:var(--amarelo);
+    padding:14px 20px;
+    display:flex;
+    align-items:center;
+    gap:16px;
+  }
+  .logo{
+    font-weight:800;
+    font-size:18px;
+    color:var(--texto);
+    white-space:nowrap;
+    letter-spacing:-0.02em;
+  }
+  .logo span{ color:var(--azul-escuro); }
+  .busca-fake{
+    flex:1;
+    max-width:560px;
+    background:#fff;
+    border-radius:6px;
+    padding:10px 14px;
+    font-size:13.5px;
+    color:#999;
+    display:flex;
+    align-items:center;
+    gap:8px;
+  }
+  .busca-fake svg{ width:16px; height:16px; flex-shrink:0; opacity:0.6; }
+  .busca-input{
+    flex:1;
+    border:none;
+    outline:none;
+    background:transparent;
+    font-size:13.5px;
+    font-family:'Inter', sans-serif;
+    color:var(--texto);
+  }
+  .busca-input::placeholder{ color:#999; }
+  .topbar-icone{
+    font-size:20px;
+    opacity:0.75;
+  }
+  .btn-tema{
+    background:rgba(0,0,0,0.08);
+    border:none;
+    border-radius:50%;
+    width:34px;
+    height:34px;
+    font-size:16px;
+    cursor:pointer;
+    flex-shrink:0;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+  }
+  .btn-tema:hover{ background:rgba(0,0,0,0.15); }
+
+  /* ===== FAIXA AZUL ===== */
+  .faixa{
+    background:var(--azul);
+    color:#fff;
+    text-align:center;
+    padding:11px 20px;
+    font-size:13px;
+    font-weight:600;
+    letter-spacing:0.01em;
+  }
+
+  /* ===== HERO ===== */
+  .hero{
+    max-width:1100px;
+    margin:0 auto;
+    padding:36px 20px 8px;
+  }
+  .hero h1{
+    font-size:clamp(22px, 4.5vw, 30px);
+    font-weight:800;
+    letter-spacing:-0.01em;
+    margin-bottom:6px;
+  }
+  .hero p{
+    font-size:14px;
+    color:var(--texto-claro);
+  }
+
+  /* ===== LAYOUT COM SIDEBAR ===== */
+  .layout{
+    max-width:1200px;
+    margin:0 auto;
+    padding:20px 20px 70px;
+    display:grid;
+    grid-template-columns:220px 1fr;
+    gap:24px;
+  }
+
+  /* ===== SIDEBAR DE CATEGORIAS (estilo filtro do ML no desktop) ===== */
+  .sidebar{
+    align-self:start;
+    position:sticky;
+    top:16px;
+  }
+  .sidebar h3{
+    font-size:13px;
+    font-weight:700;
+    text-transform:uppercase;
+    letter-spacing:0.02em;
+    color:var(--texto);
+    padding-bottom:10px;
+    margin-bottom:4px;
+    border-bottom:1px solid var(--cinza-borda);
+  }
+  .cat-item{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    width:100%;
+    text-align:left;
+    background:none;
+    border:none;
+    padding:9px 4px;
+    font-size:13.5px;
+    color:var(--texto);
+    cursor:pointer;
+    font-family:'Inter', sans-serif;
+    transition:color 0.12s ease;
+  }
+  .cat-item::before{
+    content:"";
+    width:15px;
+    height:15px;
+    border-radius:50%;
+    border:1.5px solid #C4C4C4;
+    flex-shrink:0;
+    box-sizing:border-box;
+    transition:border-color 0.12s ease, background 0.12s ease;
+  }
+  .cat-item:hover{ color:var(--azul); }
+  .cat-item:hover::before{ border-color:var(--azul); }
+  .cat-item.ativo{
+    color:var(--azul);
+    font-weight:600;
+  }
+  .cat-item.ativo::before{
+    border-color:var(--azul);
+    background:radial-gradient(circle, var(--azul) 0 42%, transparent 43%);
+  }
+  .cat-contador{
+    margin-left:auto;
+    opacity:0.65;
+    font-size:12px;
+    font-weight:400;
+  }
+
+  /* ===== GRID ===== */
+  .grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fill, minmax(200px, 1fr));
+    gap:16px;
+    align-content:start;
+  }
+  .card{ animation:apareceu 0.25s ease; }
+  @keyframes apareceu{
+    from{ opacity:0; transform:translateY(4px); }
+    to{ opacity:1; transform:translateY(0); }
+  }
+
+  @media (min-width:1200px){
+    .layout{ grid-template-columns:240px 1fr; gap:32px; }
+  }
+
+  /* ===== MOBILE / TABLET: sidebar vira pilulas horizontais (estilo app ML) ===== */
+  @media (max-width:768px){
+    .layout{ grid-template-columns:1fr; padding:0 0 60px; gap:0; }
+
+    .sidebar{
+      position:static;
+      display:flex;
+      overflow-x:auto;
+      gap:8px;
+      padding:12px 16px;
+      margin-bottom:4px;
+      -ms-overflow-style:none;
+      scrollbar-width:none;
+    }
+    .sidebar::-webkit-scrollbar{ display:none; }
+    .sidebar h3{ display:none; }
+
+    .cat-item{
+      flex-shrink:0;
+      width:auto;
+      background:var(--card);
+      border:1px solid var(--cinza-borda);
+      border-radius:999px;
+      padding:8px 14px;
+      white-space:nowrap;
+      gap:6px;
+    }
+    .cat-item::before{ display:none; }
+    .cat-item:hover{ color:var(--texto); }
+    .cat-item.ativo{
+      background:var(--azul);
+      border-color:var(--azul);
+      color:#fff;
+    }
+    .cat-contador{ margin-left:2px; opacity:0.85; }
+
+    .grid{ padding:0 16px; grid-template-columns:repeat(2, 1fr); gap:10px; }
+  }
+
+  @media (max-width:380px){
+    .hero{ padding:24px 14px 4px; }
+    .hero h1{ font-size:19px; }
+    .grid{ padding:0 12px; gap:8px; }
+    .card-body{ padding:0 10px 10px; }
+    .preco-atual{ font-size:20px; }
+  }
+
+  /* ===== CARD (estilo vitrine ML) ===== */
+  .card{
+    background:var(--card);
+    border-radius:6px;
+    border:1px solid var(--cinza-borda);
+    display:flex;
+    flex-direction:column;
+    position:relative;
+    transition:box-shadow 0.15s ease, transform 0.15s ease;
+  }
+  .card:hover{
+    box-shadow:0 4px 16px rgba(0,0,0,0.1);
+    transform:translateY(-2px);
+  }
+  .card-img-wrap{
+    position:relative;
+    padding:18px 18px 8px;
+  }
+  .card-img{
+    width:100%;
+    aspect-ratio:1/1;
+    object-fit:contain;
+  }
+  .badge-desconto{
+    position:absolute;
+    top:12px; left:12px;
+    background:var(--verde);
+    color:#fff;
+    font-size:11px;
+    font-weight:700;
+    padding:3px 7px;
+    border-radius:4px;
+  }
+  .badge-pick{
+    position:absolute;
+    top:12px; right:12px;
+    background:var(--texto);
+    color:#fff;
+    font-size:9.5px;
+    font-weight:700;
+    letter-spacing:0.03em;
+    padding:3px 7px;
+    border-radius:4px;
+    opacity:0.85;
+  }
+  .badge-destaque{
+    position:absolute;
+    top:12px; left:12px;
+    background:#B8860B;
+    color:#fff;
+    font-size:10.5px;
+    font-weight:700;
+    padding:3px 8px;
+    border-radius:4px;
+  }
+  .badge-destaque + .badge-desconto{ top:38px; }
+
+  .card-body{
+    padding:2px 16px 16px;
+    display:flex;
+    flex-direction:column;
+    gap:5px;
+    flex:1;
+  }
+  .card-titulo{
+    font-size:13.5px;
+    font-weight:400;
+    color:var(--texto);
+    line-height:1.35;
+    display:-webkit-box;
+    -webkit-line-clamp:2;
+    -webkit-box-orient:vertical;
+    overflow:hidden;
+    min-height:36px;
+  }
+  .preco-antigo{
+    font-size:12px;
+    color:#999;
+    text-decoration:line-through;
+  }
+  .preco-atual{
+    font-size:24px;
+    font-weight:400;
+    color:var(--texto);
+    letter-spacing:-0.01em;
+  }
+  .preco-atual sup{
+    font-size:13px;
+    top:-0.7em;
+  }
+  .pix-linha{
+    font-size:12.5px;
+    color:var(--verde);
+    font-weight:600;
+  }
+  .frete{
+    font-size:11.5px;
+    color:var(--verde);
+    font-weight:600;
+    margin-top:2px;
+  }
+  .linha-acoes{
+    display:flex;
+    gap:8px;
+    margin-top:10px;
+  }
+  .cta{
+    flex:1;
+    text-align:center;
+    background:var(--azul);
+    color:#fff;
+    font-weight:600;
+    font-size:13.5px;
+    padding:9px 0;
+    border-radius:6px;
+  }
+  .card:hover .cta{ background:var(--azul-escuro); }
+  .btn-whatsapp{
+    flex-shrink:0;
+    width:38px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:#25D366;
+    border-radius:6px;
+    color:#fff;
+  }
+  .btn-whatsapp svg{ width:18px; height:18px; }
+
+  /* ===== BARRA DE ORDENACAO ===== */
+  .barra-topo{
+    display:flex;
+    justify-content:flex-end;
+    margin-bottom:12px;
+  }
+  .select-ordenar{
+    font-family:'Inter', sans-serif;
+    font-size:13px;
+    padding:7px 10px;
+    border:1px solid var(--cinza-borda);
+    border-radius:6px;
+    background:#fff;
+    color:var(--texto);
+  }
+
+  /* ===== SKELETON (carregando) ===== */
+  .skeleton-card{
+    background:var(--card);
+    border-radius:6px;
+    border:1px solid var(--cinza-borda);
+    overflow:hidden;
+  }
+  .skeleton-shimmer{
+    background:linear-gradient(90deg, #eee 25%, #f5f5f5 37%, #eee 63%);
+    background-size:400% 100%;
+    animation:shimmer 1.4s ease infinite;
+  }
+  @keyframes shimmer{
+    0%{ background-position:100% 50%; }
+    100%{ background-position:0 50%; }
+  }
+  .skeleton-img{ width:100%; aspect-ratio:1/1; }
+  .skeleton-linha{ height:12px; margin:10px 14px; border-radius:4px; }
+  .skeleton-linha.curta{ width:60%; }
+
+  /* ===== RODAPE ===== */
+  footer{
+    text-align:center;
+    padding:28px 20px 40px;
+    font-size:12px;
+    color:#8c8c8c;
+    border-top:1px solid var(--cinza-borda);
+  }
+  footer b{ color:var(--texto); }
+
+  @media (max-width:480px){
+    .logo{ font-size:15px; }
+    .busca-fake{ font-size:12px; }
+  }
+  @media (max-width:340px){
+    .busca-fake{ display:none; }
+  }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="logo">CSC<span>.Digital</span></div>
+  <div class="busca-fake">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+    <input type="text" id="busca-input" class="busca-input" placeholder="Buscar ofertas selecionadas...">
+  </div>
+  <button class="btn-tema" id="btn-tema" onclick="alternarTema()" title="Alternar tema claro/escuro">🌙</button>
+  <div class="topbar-icone">🛒</div>
+</div>
+
+<div class="faixa">🔥 Ofertas com frete grátis e desconto no PIX — atualizado toda semana</div>
+
+<div class="hero">
+  <h1>Achados da semana, com o melhor preço que encontrei</h1>
+  <p>Cada produto abaixo eu conferi antes de indicar. Clique e compre direto no Mercado Livre.</p>
+</div>
+
+<div class="layout">
+  <div class="sidebar" id="sidebar">
+    <h3>Categorias</h3>
+    <!-- preenchido via JS -->
+  </div>
+  <div>
+    <div class="barra-topo">
+      <select class="select-ordenar" id="select-ordenar" onchange="aplicarFiltros()">
+        <option value="relevancia">Mais relevantes</option>
+        <option value="menor-preco">Menor preço</option>
+        <option value="maior-desconto">Maior desconto</option>
+        <option value="recentes">Mais recentes</option>
+      </select>
+    </div>
+    <div class="grid" id="produtos"></div>
+  </div>
+</div>
+
+<footer>
+  Ofertas com link de afiliado <b>Mercado Livre</b> — comprar por aqui não custa nada extra pra você e ajuda o <b>CSC.Digital</b>.
+</footer>
+
+<script>
+  /* ======================================================
+     A pagina agora le os produtos DIRETO do GitHub (arquivo
+     raw), em vez de pedir pro Render. Isso evita que o
+     visitante sinta a demora de "acordar" o servidor - o
+     GitHub nunca dorme.
+
+     O Render so entra em acao quando VOCE abre o gerenciador
+     pra editar produtos (aí sim pode esperar uns segundos,
+     mas ai e so voce, sabendo o motivo).
+
+     Formato da URL:
+     https://raw.githubusercontent.com/SEU-USUARIO/SEU-REPO/main/produtos.json
+
+     Exige que o repositorio esteja PUBLICO (Settings > Danger
+     Zone > Change visibility > Make public). Isso e seguro
+     porque nenhuma senha/token fica no codigo - tudo isso
+     mora so nas variaveis de ambiente do Render.
+  ====================================================== */
+  const API_URL = "https://raw.githubusercontent.com/cleitoncorina2209/csc-digital-gerenciador/main/produtos.json";
+
+  function calcularDesconto(atual, antigo) {
+    const a = parseFloat(String(atual).replace(",", "."));
+    const b = parseFloat(String(antigo).replace(",", "."));
+    if (!a || !b || b <= a) return null;
+    return Math.round(100 - (a / b) * 100);
+  }
+
+  function corrigirOrdemPrecos(p) {
+    if (!p.precoAntigo) return p;
+    const atual = parseFloat(String(p.precoAtual).replace(",", "."));
+    const antigo = parseFloat(String(p.precoAntigo).replace(",", "."));
+    if (antigo && atual && antigo < atual) {
+      return { ...p, precoAtual: p.precoAntigo, precoAntigo: p.precoAtual };
+    }
+    return p;
+  }
+
+  function partesPreco(precoStr) {
+    const [inteiro, centavos] = String(precoStr).split(",");
+    return { inteiro: inteiro || "0", centavos: centavos || "00" };
+  }
+
+  const grid = document.getElementById('produtos');
+  const sidebar = document.getElementById('sidebar');
+  let catalogoCompleto = [];
+  let categoriaAtiva = 'Todas';
+
+  mostrarSkeleton();
+
+  fetch(API_URL + (API_URL.includes('?') ? '&' : '?') + 'ts=' + Date.now(), { cache: 'no-store' })
+    .then(resposta => {
+      if (!resposta.ok) throw new Error('Nao consegui buscar os produtos (' + API_URL + ')');
+      return resposta.json();
+    })
+    .then(produtos => {
+      catalogoCompleto = produtos.map(corrigirOrdemPrecos);
+      montarSidebar(catalogoCompleto);
+      aplicarFiltros();
+    })
+    .catch(erro => {
+      grid.innerHTML = `<p style="grid-column:1/-1; text-align:center; color:#999; padding:40px 0;">
+        Nenhum produto encontrado ainda.
+      </p>`;
+      console.warn(erro);
+    });
+
+  function mostrarSkeleton() {
+    grid.innerHTML = Array(6).fill(`
+      <div class="skeleton-card">
+        <div class="skeleton-img skeleton-shimmer"></div>
+        <div class="skeleton-linha skeleton-shimmer"></div>
+        <div class="skeleton-linha curta skeleton-shimmer"></div>
+      </div>
+    `).join('');
+  }
+
+  function montarSidebar(produtos) {
+    const contagem = {};
+    produtos.forEach(p => {
+      const cat = p.categoria || 'Outros';
+      contagem[cat] = (contagem[cat] || 0) + 1;
+    });
+    const categorias = Object.keys(contagem).sort();
+
+    let html = `
+      <button class="cat-item ativo" data-cat="Todas" onclick="selecionarCategoria('Todas')">
+        Todas <span class="cat-contador">${produtos.length}</span>
+      </button>`;
+    categorias.forEach(cat => {
+      html += `
+        <button class="cat-item" data-cat="${cat}" onclick="selecionarCategoria('${cat}')">
+          ${cat} <span class="cat-contador">${contagem[cat]}</span>
+        </button>`;
+    });
+
+    // mantem o "h3" que ja existia no HTML e adiciona os botoes depois
+    sidebar.innerHTML = '<h3>Categorias</h3>' + html;
+  }
+
+  window.selecionarCategoria = function (categoria) {
+    categoriaAtiva = categoria;
+    document.querySelectorAll('.cat-item').forEach(btn => {
+      btn.classList.toggle('ativo', btn.dataset.cat === categoria);
+    });
+    aplicarFiltros();
+  };
+
+  function aplicarFiltros() {
+    let filtrados = catalogoCompleto;
+
+    if (categoriaAtiva !== 'Todas') {
+      filtrados = filtrados.filter(p => (p.categoria || 'Outros') === categoriaAtiva);
+    }
+
+    const termo = document.getElementById('busca-input').value.trim().toLowerCase();
+    if (termo) {
+      filtrados = filtrados.filter(p => (p.titulo || '').toLowerCase().includes(termo));
+    }
+
+    const modoOrdenar = document.getElementById('select-ordenar').value;
+    filtrados = ordenarProdutos(filtrados, modoOrdenar);
+
+    renderizarProdutos(filtrados);
+  }
+
+  function ordenarProdutos(lista, modo) {
+    const arr = [...lista];
+    if (modo === 'menor-preco') {
+      arr.sort((a, b) => parseFloat(String(a.precoAtual).replace(',', '.')) - parseFloat(String(b.precoAtual).replace(',', '.')));
+    } else if (modo === 'maior-desconto') {
+      arr.sort((a, b) => (calcularDesconto(b.precoAtual, b.precoAntigo) || 0) - (calcularDesconto(a.precoAtual, a.precoAntigo) || 0));
+    } else if (modo === 'recentes') {
+      arr.reverse();
+    } else {
+      // relevancia (padrao): produtos em destaque primeiro, sem embaralhar o resto
+      arr.sort((a, b) => (b.destaque ? 1 : 0) - (a.destaque ? 1 : 0));
+    }
+    return arr;
+  }
+
+  const inputBusca = document.getElementById('busca-input');
+  let debounceBusca;
+  inputBusca.addEventListener('input', () => {
+    clearTimeout(debounceBusca);
+    debounceBusca = setTimeout(aplicarFiltros, 200);
+  });
+
+  function renderizarProdutos(produtos) {
+    grid.innerHTML = '';
+
+    if (produtos.length === 0) {
+      grid.innerHTML = '<p style="grid-column:1/-1; text-align:center; color:#999; padding:40px 0;">Nenhum produto encontrado.</p>';
+      return;
+    }
+
+    produtos.forEach(p => {
+      const desconto = calcularDesconto(p.precoAtual, p.precoAntigo);
+      const { inteiro, centavos } = partesPreco(p.precoAtual);
+
+      const card = document.createElement('div');
+      card.className = 'card';
+
+      const textoWhatsapp = encodeURIComponent(`Olha essa oferta: ${p.titulo} - R$ ${p.precoAtual}\n${p.link}`);
+
+      card.innerHTML = `
+        <a href="${p.link}" target="_blank" rel="noopener noreferrer" onclick="registrarClique('${p.link}')" style="text-decoration:none; color:inherit; display:block;">
+          <div class="card-img-wrap">
+            ${p.destaque ? `<div class="badge-destaque">★ Destaque</div>` : ''}
+            ${desconto ? `<div class="badge-desconto">${desconto}% OFF</div>` : ''}
+            ${p.selo ? `<div class="badge-pick">${p.selo}</div>` : ''}
+            <img class="card-img" src="${p.imagem}" alt="${p.titulo}" loading="lazy">
+          </div>
+          <div class="card-body">
+            <div class="card-titulo">${p.titulo}</div>
+            ${p.precoAntigo ? `<div class="preco-antigo">R$ ${p.precoAntigo}</div>` : ''}
+            <div class="preco-atual">R$ <sup></sup>${inteiro}<sup>${centavos}</sup></div>
+            <div class="pix-linha">no PIX</div>
+            <div class="frete">Frete grátis</div>
+          </div>
+        </a>
+        <div class="card-body" style="padding-top:0;">
+          <div class="linha-acoes">
+            <a class="cta" href="${p.link}" target="_blank" rel="noopener noreferrer" onclick="registrarClique('${p.link}')">Ver oferta</a>
+            <a class="btn-whatsapp" href="https://wa.me/?text=${textoWhatsapp}" target="_blank" rel="noopener noreferrer" title="Compartilhar no WhatsApp">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.6 6.3A9 9 0 0 0 3.3 18l-1 3.7 3.8-1A9 9 0 1 0 17.6 6.3zM12 19.5a7.5 7.5 0 0 1-3.8-1l-.3-.2-2.8.7.7-2.7-.2-.3A7.5 7.5 0 1 1 12 19.5zm4.1-5.6c-.2-.1-1.3-.7-1.5-.7s-.4-.1-.5.1-.6.7-.7.9-.3.2-.5.1a6 6 0 0 1-2.8-2.5c-.2-.4.2-.4.6-1.3.1-.2 0-.3 0-.5s-.7-1.7-.9-2.2-.4-.4-.5-.4h-.5c-.2 0-.5.1-.7.4a2.3 2.3 0 0 0-.7 1.7c0 1 .7 2 .8 2.1s1.4 2.2 3.5 3c2.1.9 2.1.6 2.5.5s1.2-.5 1.4-1 .2-.9.1-1z"/></svg>
+            </a>
+          </div>
+        </div>
+      `;
+      grid.appendChild(card);
+    });
+
+    atualizarDadosEstruturados(produtos);
+  }
+
+  function atualizarDadosEstruturados(produtos) {
+    const antigo = document.getElementById('dados-estruturados');
+    if (antigo) antigo.remove();
+
+    const itemListElement = produtos.slice(0, 20).map((p, i) => ({
+      "@type": "ListItem",
+      "position": i + 1,
+      "item": {
+        "@type": "Product",
+        "name": p.titulo,
+        "image": p.imagem,
+        "url": p.link,
+        "offers": {
+          "@type": "Offer",
+          "price": String(p.precoAtual).replace(",", "."),
+          "priceCurrency": "BRL",
+          "availability": "https://schema.org/InStock",
+          "url": p.link
+        }
+      }
+    }));
+
+    const dados = {
+      "@context": "https://schema.org",
+      "@type": "ItemList",
+      "itemListElement": itemListElement
+    };
+
+    const script = document.createElement('script');
+    script.id = 'dados-estruturados';
+    script.type = 'application/ld+json';
+    script.textContent = JSON.stringify(dados);
+    document.head.appendChild(script);
+  }
+
+  const API_BASE_CLIQUES = "https://csc-digital-gerenciador.onrender.com";
+
+  window.registrarClique = function (link) {
+    // "fire and forget": nao espera resposta, nao atrapalha a navegacao do
+    // visitante. Se o Render estiver dormindo e nao responder, sem problema,
+    // so perde essa contagem - nao trava nada pro usuario.
+    try {
+      fetch(API_BASE_CLIQUES + "/api/clique", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ link: link }),
+        keepalive: true,
+      }).catch(() => {});
+    } catch (e) {
+      // ignora silenciosamente - contagem de clique nunca deve travar a navegacao
+    }
+  };
+
+  window.alternarTema = function () {
+    const atual = document.documentElement.getAttribute('data-tema');
+    const novo = atual === 'escuro' ? 'claro' : 'escuro';
+    aplicarTema(novo);
+    localStorage.setItem('tema-preferido', novo);
+  };
+
+  function aplicarTema(tema) {
+    if (tema === 'escuro') {
+      document.documentElement.setAttribute('data-tema', 'escuro');
+      document.getElementById('btn-tema').textContent = '☀️';
+    } else {
+      document.documentElement.removeAttribute('data-tema');
+      document.getElementById('btn-tema').textContent = '🌙';
+    }
+  }
+
+  aplicarTema(localStorage.getItem('tema-preferido') || 'claro');
+
+  if ("serviceWorker" in navigator) {
+    navigator.serviceWorker.register("sw.js").catch(() => {});
+  }
+</script>
+
+</body>
+</html>
